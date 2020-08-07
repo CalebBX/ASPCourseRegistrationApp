@@ -60,8 +60,18 @@ namespace ASPCourseRegistrationApp.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
-            [Display(Name = "Address")]
-            public string MailingAddress { get; set; }
+            [Display(Name = "Street Address")]
+            public string StreetAddress { get; set; }
+
+            [Required]
+            [StringLength(2, ErrorMessage = "Please enter valid state abbreviation.", MinimumLength = 2)]
+            [Display(Name = "State")]
+            public string State { get; set; }
+
+            [Required]
+            [DataType(DataType.PostalCode)]
+            [Display(Name = "Zip")]
+            public string Zipcode { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
