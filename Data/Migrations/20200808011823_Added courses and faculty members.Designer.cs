@@ -4,14 +4,16 @@ using ASPCourseRegistrationApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASPCourseRegistrationApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200808011823_Added courses and faculty members")]
+    partial class Addedcoursesandfacultymembers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,45 +114,21 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                     b.Property<string>("CourseName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EndTime")
+                    b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("InstructorId")
-                        .HasColumnType("int");
+                    b.Property<string>("InstructorName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("StartTime")
+                    b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InstructorId");
-
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100,
-                            CourseCode = "DD101",
-                            CourseName = "Intro To Dare-Deviling",
-                            EndTime = new DateTime(2020, 8, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
-                            InstructorId = 100,
-                            Location = "Granger Building RM340",
-                            StartTime = new DateTime(2020, 8, 8, 10, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 101,
-                            CourseCode = "CM230",
-                            CourseName = "Advanced Criminology",
-                            EndTime = new DateTime(2020, 8, 8, 9, 0, 0, 0, DateTimeKind.Unspecified),
-                            InstructorId = 101,
-                            Location = "Apex Building RM110",
-                            StartTime = new DateTime(2020, 8, 8, 8, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("ASPCourseRegistrationApp.Models.Faculty", b =>
@@ -169,20 +147,6 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FacultyMembers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100,
-                            FirstName = "Kick",
-                            LastName = "Buttowski"
-                        },
-                        new
-                        {
-                            Id = 101,
-                            FirstName = "Ace",
-                            LastName = "Ventura"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -318,13 +282,6 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("ASPCourseRegistrationApp.Models.Course", b =>
-                {
-                    b.HasOne("ASPCourseRegistrationApp.Models.Faculty", "Instructor")
-                        .WithMany()
-                        .HasForeignKey("InstructorId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

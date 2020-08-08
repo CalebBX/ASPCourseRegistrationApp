@@ -1,64 +1,59 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using ASPCourseRegistrationApp.Models
+
+@model IEnumerable<Course> 
+
 @{
 }
 
 <div class="text-center">
     <h1 class="display-4 mb-5">Register For Courses</h1>
 </div>
+
 <div class="course-list mt-5">
-    <div class="course-card">
-        <div class="row">
-            <div class="col-md-9">
-                <h3 class="course-card__title">
-                    Introduction to Dare-Deviling
-                </h3>
+    @foreach (Course course in Model)
+    {
+        string formattedStartTime = course.StartTime.HasValue ? course.StartTime.Value.ToString("h:mmtt").ToLower() : null;
+        string formattedEndTime = course.EndTime.HasValue ? course.EndTime.Value.ToString("h:mmtt").ToLower() : null;
+
+        <div class="course-card">
+            <div class="row">
+                <div class="col-md-9">
+                    <h3 class="course-card__title">
+                        @course.CourseName
+                    </h3>
+                </div>
+                <div class="col-md text-md-right">
+                    <span class="badge badge-primary">Physical Education</span>
+                </div>
+
             </div>
-            <div class="col-md text-md-right">
-                <span class="badge badge-primary">Physical Education</span>
+
+            <div class="row">
+                <div class="col-md-6 font-weight-bold">
+                    @if (course.Instructor != null)
+                    {
+                        @(course.Instructor.FirstName + " " + course.Instructor.LastName)
+                    }
+
+                </div>
+                <div class="col-md-6 font-weight-bold">
+                    @course.CourseCode
+                </div>
             </div>
-           
-        </div>
-        
-        <div class="row">
-            <div class="col-md-6 font-weight-bold">
-                Kick Buttowski
-            </div>
-            <div class="col-md-6 font-weight-bold">
-                DD101
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                10:00am - 11:00am
-            </div>
-            <div class="col-md-6">
-                Granger Building RM 240
-            </div>
-        </div>
-    </div>
-    <div class="course-card selected">
-        <h3 class="course-card__title mb-3">
-            Introduction to Dare-Deviling
-        </h3>
-        <div class="row">
-            <div class="col-md-6 font-weight-bold">
-                Kick Buttowski
-            </div>
-            <div class="col-md-6 font-weight-bold">
-                DD101
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                10:00am - 11:00am
-            </div>
-            <div class="col-md-6">
-                Granger Building RM 240
+            <div class="row">
+                <div class="col-md-6">
+                    @if(course.StartTime.HasValue && course.EndTime.HasValue)
+                    {
+                        @(formattedStartTime + " - " + formattedEndTime)
+                    }
+                    
+                </div>
+                <div class="col-md-6">
+                    @course.Location
+                </div>
             </div>
         </div>
-    </div>
+    }
 </div>
 
 <style>
