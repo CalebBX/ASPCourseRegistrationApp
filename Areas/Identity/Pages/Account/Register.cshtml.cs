@@ -64,6 +64,10 @@ namespace ASPCourseRegistrationApp.Areas.Identity.Pages.Account
             public string StreetAddress { get; set; }
 
             [Required]
+            [Display(Name = "City")]
+            public string City { get; set; }
+
+            [Required]
             [StringLength(2, ErrorMessage = "Please enter valid state abbreviation.", MinimumLength = 2)]
             [Display(Name = "State")]
             public string State { get; set; }
@@ -97,7 +101,16 @@ namespace ASPCourseRegistrationApp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { 
+                    UserName = Input.Email, 
+                    Email = Input.Email, 
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    StreetAddress = Input.StreetAddress,
+                    City = Input.City,
+                    State = Input.State,
+                    Zipcode = Input.Zipcode
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

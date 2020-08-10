@@ -36,6 +36,26 @@ namespace ASPCourseRegistrationApp.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Display(Name = "Street Address")]
+            public string StreetAddress { get; set; }
+
+            [Display(Name = "City")]
+            public string City { get; set; }
+
+            [StringLength(2, ErrorMessage = "Please enter valid state abbreviation.", MinimumLength = 2)]
+            [Display(Name = "State")]
+            public string State { get; set; }
+
+            [DataType(DataType.PostalCode)]
+            [Display(Name = "Zip")]
+            public string Zipcode { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -47,7 +67,14 @@ namespace ASPCourseRegistrationApp.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                StreetAddress = user.StreetAddress,
+                City = user.City,
+                State = user.State,
+                Zipcode = user.Zipcode
+
             };
         }
 
@@ -77,16 +104,23 @@ namespace ASPCourseRegistrationApp.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+
+
+            user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
+            user.StreetAddress = Input.StreetAddress;
+            user.City = Input.City;
+            user.State = Input.State;
+            user.Zipcode = Input.Zipcode;
+            user.PhoneNumber = Input.PhoneNumber;
+
+            var updateUserResult = await _userManager.UpdateAsync(user);
+            if (!updateUserResult.Succeeded)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
+                StatusMessage = "Unexpected error when trying to update profile.";
+                return RedirectToPage();
             }
+
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

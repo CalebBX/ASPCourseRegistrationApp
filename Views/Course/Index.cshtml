@@ -68,25 +68,25 @@
         <div class="card sticky-top register-form">
             <div class="card-body">
 
-                @*@if (!User.Identity.IsAuthenticated)
-                    {
-                        <h5 class="card-title">Log In</h5>
-                        <p class="card-text">Log in to register for courses.</p>
-                        <a href="/Identity/Account/Login" class="btn btn-primary">Log In</a>
-                    }
-                    else
-                    {*@
-                <form id="form-register-courses">
-                    <h5 class="card-title">Registered Courses</h5>
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <h5 class="card-title">Log In</h5>
+                    <p class="card-text">Log in to register for courses.</p>
+                    <a href="/Identity/Account/Login" class="btn btn-primary">Log In</a>
+                }
+                else
+                {
+                    <form id="form-register-courses">
+                        <h5 class="card-title">Registered Courses</h5>
 
-                    <ul id="registered-courses-list">
-                    </ul>
-                    <p class="card-text">Confirm Course Selection</p>
-                    <button id="btn-register" type="submit" class="btn btn-primary">Submit</button>
-                    @Html.Hidden("registeredCourseIds", Json.Serialize(registeredCourseIds))
-                </form>
+                        <ul id="registered-courses-list">
+                        </ul>
+                        <p class="card-text">Confirm Course Selection</p>
+                        <button id="btn-register" type="submit" class="btn btn-primary">Submit</button>
+                        @Html.Hidden("registeredCourseIds", Json.Serialize(registeredCourseIds))
+                    </form>
 
-                @* } *@
+                }
 
 
             </div>
