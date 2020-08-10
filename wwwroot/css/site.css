@@ -94,3 +94,11 @@ body {
     .course-card.selected {
         border-top: 5px solid lime;
     }
+
+.course-report-card {
+    position: relative;
+    padding: 20px;
+    background: #f5f8fa;
+    border: 1px solid #9ea3a8;
+    margin-bottom: 20px;
+}

@@ -89,5 +89,16 @@ namespace ASPCourseRegistrationApp.Controllers
             Response.StatusCode = 500;
             return View();
         }
+        [Authorize]
+        public IActionResult RegisteredCoursesReport()
+        {
+            IEnumerable<StudentCourse> studentCourses = _context.StudentCourses
+                .Include(sc => sc.Course)
+                .Include(sc => sc.Course.Instructor)
+                .Include(sc=>sc.Student)
+                .OrderBy(sc => sc.Course.CourseName);
+
+            return View(studentCourses);
+        }
     }
 }

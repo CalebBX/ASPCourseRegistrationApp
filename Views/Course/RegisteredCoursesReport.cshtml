@@ -1,0 +1,75 @@
+﻿@model IEnumerable<StudentCourse>
+@using ASPCourseRegistrationApp.Models
+
+@{ 
+    ViewData["Title"] = "Course Report";
+
+    var groupedStudentCourses = Model.OrderBy(sc => sc.Course.CourseName).GroupBy(sc => sc.Course);
+}
+<div class="text-center">
+    <h1 class="display-4 mb-5">Registered Courses and Students Report</h1>
+</div>
+<div>
+    @foreach (var group in groupedStudentCourses)
+    {
+        Course course = group.Key;
+
+        string formattedStartTime = course.StartTime.HasValue ? course.StartTime.Value.ToString("h:mmtt").ToLower() : null;
+        string formattedEndTime = course.EndTime.HasValue ? course.EndTime.Value.ToString("h:mmtt").ToLower() : null;
+
+    <div class="course-report-card">
+        <div class="row">
+            <div class="col-md-9">
+                <h3 class="course-card__title">
+                    @course.CourseName
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 font-weight-bold">
+                @if (course.Instructor != null)
+                {
+                    @(course.Instructor.FirstName + " " + course.Instructor.LastName)
+                }
+
+            </div>
+            <div class="col-md-6 font-weight-bold">
+                @course.CourseCode
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @if (course.StartTime.HasValue && course.EndTime.HasValue)
+                {
+                    @(formattedStartTime + " - " + formattedEndTime)
+                }
+
+            </div>
+            <div class="col-md-6">
+                @course.Location
+            </div>
+        </div>
+        <h4 class="mt-5 mb-3">Registered Students</h4>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var studentCourse in group)
+                {
+                    <tr>
+                        <td>@studentCourse.Student.FirstName</td>
+                        <td>@studentCourse.Student.LastName</td>
+                        <td>@studentCourse.Student.Email</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    }
+</div>
