@@ -1,10 +1,10 @@
 ﻿
 $(document).ready(function () {
 
-    var registeredCourseIds = JSON.parse($('#registeredCourseIds').val());
+    var registeredCourseIds = $('#registeredCourseIds').val() ? JSON.parse($('#registeredCourseIds').val()) : [];
     var courseListElement = $('#registered-courses-list');
 
-    $('.course-card').click(function (e) {
+    $('.course-list').on('click', '.course-card', function (e) {
         var courseId = $(this).data('id');
         var courseCode = $(this).data('code');
         if (registeredCourseIds.includes(courseId)) {
@@ -16,8 +16,7 @@ $(document).ready(function () {
             $(this).find('.status-badge').html('<span class="badge badge-success">Registered</span>');
             $(this).addClass('selected');
         }
-
-    });
+    })
     $('#form-register-courses').submit(function (e) {
         e.preventDefault();
         $.ajax({
@@ -36,6 +35,27 @@ $(document).ready(function () {
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Status: " + textStatus); alert("Error: " + errorThrown);
             }  
+
+        })
+    });
+    $('#form-course-filter').submit(function (e) {
+        e.preventDefault();
+        var order = $('#order-select').val();
+        var terms = $('#course-search').val();
+        var queryString = `?order=${order}&terms=${terms}`;
+        $.ajax({
+            url: '/course/Index' + queryString,
+            type: 'GET',
+            headers: {
+                RequestVerificationToken:
+                    $('input:hidden[name="__RequestVerificationToken"]').val()
+            },
+            success: function (result) {
+                $('.course-list').html($(result).find('.course-list').html());
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+            }
 
         })
     });
