@@ -11,6 +11,8 @@
 
     string order = Context.Request.Query["order"];
     string terms = Context.Request.Query["terms"];
+    int page = Int32.TryParse(Context.Request.Query["page"], out page) ? page : 1;
+
 
     if (!string.IsNullOrEmpty(terms))
     {
@@ -37,8 +39,11 @@
                 break;
         }
     }
-}
 
+    const int itemsPerPage = 5;
+    int totalPages = (int)Math.Ceiling((decimal)allCourses.Count() / (decimal)itemsPerPage);
+    
+}
 
 
 <div class="main">
@@ -117,7 +122,9 @@
 
                     string selectedClass = isRegistered ? "selected" : string.Empty;
 
-                    <div class="course-card @selectedClass" data-id="@course.Id" data-code="@course.CourseCode">
+                    string disabledClass = User.Identity.IsAuthenticated ? string.Empty : "disabled";
+
+                    <div class="course-card @selectedClass @disabledClass" data-id="@course.Id" data-code="@course.CourseCode">
                         <div class="row">
                             <div class="col-md-9">
                                 <h3 class="course-card__title">
@@ -160,7 +167,26 @@
                         </div>
                     </div>
                 }
+                @*<nav aria-label="Courses pagination">
+                    <ul class="pagination">
+                        @{
+                            string prevDisabled = page == 1 ? "disabled" : string.Empty;
+                            string nextDisabled = page == totalPages ? "disabled" : string.Empty;
+                        }
 
+                        <li class="page-item @prevDisabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            string activeClass = i == page ? "active" : string.Empty;
+                            <li class="page-item @activeClass"><a class="page-link" data-ajax="@Context.Request.Path" href="#">@i</a></li>
+                        }
+                        <li class="page-item @nextDisabled">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>*@
             </div>
         </div>
 

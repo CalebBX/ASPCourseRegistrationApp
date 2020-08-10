@@ -5,17 +5,22 @@ $(document).ready(function () {
     var courseListElement = $('#registered-courses-list');
 
     $('.course-list').on('click', '.course-card', function (e) {
-        var courseId = $(this).data('id');
-        var courseCode = $(this).data('code');
-        if (registeredCourseIds.includes(courseId)) {
-            removeFromRegisteredCoursesList(courseId, courseCode);
-            $(this).find('.status-badge .badge-success').remove();
-            $(this).removeClass('selected');
+        if (!$(this).hasClass('disabled')) {
+            var courseId = $(this).data('id');
+            var courseCode = $(this).data('code');
+            if (registeredCourseIds.includes(courseId)) {
+                removeFromRegisteredCoursesList(courseId, courseCode);
+                $(this).find('.status-badge .badge-success').remove();
+                $(this).removeClass('selected');
+            } else {
+                addToRegisteredCoursesList(courseId, courseCode);
+                $(this).find('.status-badge').html('<span class="badge badge-success">Registered</span>');
+                $(this).addClass('selected');
+            }
         } else {
-            addToRegisteredCoursesList(courseId, courseCode);
-            $(this).find('.status-badge').html('<span class="badge badge-success">Registered</span>');
-            $(this).addClass('selected');
+            console.log("disabled");
         }
+       
     })
     $('#form-register-courses').submit(function (e) {
         e.preventDefault();
