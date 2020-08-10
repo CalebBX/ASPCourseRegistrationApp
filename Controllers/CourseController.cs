@@ -98,5 +98,23 @@ namespace ASPCourseRegistrationApp.Controllers
 
             return View(studentCourses);
         }
+        [Authorize]
+        public IActionResult MyCourses()
+        {
+            ApplicationUser student = User.Identity.IsAuthenticated ? _context.Users.FirstOrDefault(appUser => appUser.UserName == User.Identity.Name) : null;
+            if(student!= null)
+            {
+                ICollection<Course> courses = _context.StudentCourses
+                    .Where(sc => sc.StudentId == student.Id)
+                    .Include(sc => sc.Course.Instructor)
+                    .Select(sc => sc.Course)
+                    .OrderBy(c => c.StartTime)
+                    .ThenBy(c => c.CourseName)
+                    .ToList();
+                return View(courses);
+            }
+            Response.StatusCode = 500;
+            return View();
+        }
     }
 }

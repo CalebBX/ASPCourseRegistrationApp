@@ -1,0 +1,51 @@
+﻿@model ICollection<Course>
+@using ASPCourseRegistrationApp.Models
+
+@{
+    ViewData["Title"] = "My Courses";
+}
+
+<div class="text-center">
+    <h1 class="display-4 mb-5">@ViewData["Title"]</h1>
+</div>
+    @foreach (Course course in Model)
+    {
+
+        string formattedStartTime = course.StartTime.HasValue ? course.StartTime.Value.ToString("h:mmtt").ToLower() : null;
+        string formattedEndTime = course.EndTime.HasValue ? course.EndTime.Value.ToString("h:mmtt").ToLower() : null;
+
+
+        <div class="course-card-detail">
+
+
+            <h3 class="course-card__title">
+                @course.CourseName
+            </h3>
+
+            <div class="row">
+                <div class="col-md-6 font-weight-bold">
+                    @if (course.Instructor != null)
+                    {
+                        @(course.Instructor.FirstName + " " + course.Instructor.LastName)
+                    }
+
+                </div>
+                <div class="col-md-6 font-weight-bold">
+                    @course.CourseCode
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @if (course.StartTime.HasValue && course.EndTime.HasValue)
+                    {
+                        @(formattedStartTime + " - " + formattedEndTime)
+                    }
+
+                </div>
+                <div class="col-md-6">
+                    @course.Location
+                </div>
+            </div>
+        </div>
+    }
+

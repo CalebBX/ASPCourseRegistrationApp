@@ -30,8 +30,8 @@ $(document).ready(function () {
                 RequestVerificationToken:
                     $('input:hidden[name="__RequestVerificationToken"]').val()
             },
-            success: function(result) {
-
+            success: function (result) {
+                $('.main').html($(result).find('.partial').html());
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Status: " + textStatus); alert("Error: " + errorThrown);

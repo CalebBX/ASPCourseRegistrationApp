@@ -1,15 +1,14 @@
 ﻿@model IEnumerable<Course> 
 @using ASPCourseRegistrationApp.Models
 
-@{
-
-}
-<ul>
-    @foreach (Course course in Model)
-    {
-        <li>
-            @course.CourseName
-        </li>
-    }
-</ul>
+<div class="partial">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Thank You for Registering</h1>
+        <hr class="my-4">
+        <p class="lead mt-5">
+            <a class="btn btn-primary btn-lg" href="@Url.Action("Index", "Course")" role="button">Back to Course List</a>
+            <a class="btn btn-primary btn-lg" href="@Url.Action("MyCourses", "Course")" role="button">My Courses</a>
+        </p>
+    </div>
+</div>
 
