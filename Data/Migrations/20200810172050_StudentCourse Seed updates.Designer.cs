@@ -4,14 +4,16 @@ using ASPCourseRegistrationApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASPCourseRegistrationApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200810172050_StudentCourse Seed updates")]
+    partial class StudentCourseSeedupdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +108,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                         {
                             Id = "seeduser1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a10e73f1-f583-48da-a921-9424bbc6b11d",
+                            ConcurrencyStamp = "9aec89f1-bb11-4ef0-87f1-386ea8c070cd",
                             Email = "user1@test.com",
                             EmailConfirmed = true,
                             FirstName = "John",
@@ -114,7 +116,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER1@TEST.COM",
                             NormalizedUserName = "USER1@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEVpCCzkt+1GZ2ihTEsyHoCLHk3J+nGCNTA2i9YVc9GBDPXJJRNK3pkTf67sQphdPA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIXGdUJIhLcFwwKxFVLbwbRkz49cQJ/kTrvRVb/t4KfPVVXwWRlpgolUIstL1rwDNA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -124,7 +126,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                         {
                             Id = "seeduser2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ac9ddab5-7f86-49d6-8129-22e87e42a53b",
+                            ConcurrencyStamp = "f9ef1a33-85d7-4b24-b697-d992a2962cdd",
                             Email = "user2@test.com",
                             EmailConfirmed = true,
                             FirstName = "Sara",
@@ -132,7 +134,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@TEST.COM",
                             NormalizedUserName = "USER2@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDAhn+JmgAEUdaRdjFRivvRWmPppbMRr/vmWUAas/xDi++wCdI4Z7IJQ5h/UAjzpDA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGKNS8iCO6lIvBhOr21HzGwRdDx862G5l6ZbdSlGPNzdxYd81kGfl/1gow/uPEnHqg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -142,7 +144,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                         {
                             Id = "seeduser3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4802aed5-7eed-4259-aacc-6f47deb6ecb2",
+                            ConcurrencyStamp = "bf42f4e2-8ba0-45ef-b16e-74519b3b8309",
                             Email = "user3@test.com",
                             EmailConfirmed = true,
                             FirstName = "Pete",
@@ -150,7 +152,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@TEST.COM",
                             NormalizedUserName = "USER3@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHWVZfuYFT3tjeFXmnMJxVjWvsfJ593w96p+XeoA6WX5hiA+kHyVXHUu7AYM508Acg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEElMvYWGb7l1T8iRi4Gfult4GB2Zu3yzVSzzoQ0ZqGQ3+PvbOiYUBNeEPesKR27SUg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -160,7 +162,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                         {
                             Id = "seeduser4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cff377d7-fa3a-45b3-aea9-a990d35ab8c6",
+                            ConcurrencyStamp = "4c9024d9-b188-42ce-852a-44cdf449931b",
                             Email = "user4@test.com",
                             EmailConfirmed = true,
                             FirstName = "Jane",
@@ -168,7 +170,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER4@TEST.COM",
                             NormalizedUserName = "USER4@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEcPPJHeAIK1FkWAlwJ/GlGiCwxbHuQVrIjiAXtCFNKwmuxztL8/QKM+AGoDzHwPpg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBRlGTX/+RtbIBI1VCBQ78Ha6mel3BQv1dxbeiTtxfNITpPd7q1TRmuZnnzFD16Lig==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -337,43 +339,6 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("StudentCourses");
-
-                    b.HasData(
-                        new
-                        {
-                            StudentId = "seeduser1",
-                            CourseId = 103
-                        },
-                        new
-                        {
-                            StudentId = "seeduser1",
-                            CourseId = 100
-                        },
-                        new
-                        {
-                            StudentId = "seeduser1",
-                            CourseId = 104
-                        },
-                        new
-                        {
-                            StudentId = "seeduser2",
-                            CourseId = 104
-                        },
-                        new
-                        {
-                            StudentId = "seeduser2",
-                            CourseId = 105
-                        },
-                        new
-                        {
-                            StudentId = "seeduser2",
-                            CourseId = 106
-                        },
-                        new
-                        {
-                            StudentId = "seeduser3",
-                            CourseId = 104
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

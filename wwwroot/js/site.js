@@ -9,9 +9,11 @@ $(document).ready(function () {
         var courseCode = $(this).data('code');
         if (registeredCourseIds.includes(courseId)) {
             removeFromRegisteredCoursesList(courseId, courseCode);
+            $(this).find('.status-badge .badge-success').remove();
             $(this).removeClass('selected');
         } else {
             addToRegisteredCoursesList(courseId, courseCode);
+            $(this).find('.status-badge').html('<span class="badge badge-success">Registered</span>');
             $(this).addClass('selected');
         }
 

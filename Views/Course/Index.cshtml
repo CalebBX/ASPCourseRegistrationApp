@@ -7,6 +7,7 @@
     ViewData["Title"] = "Register For Courses";
 
     int[] registeredCourseIds = Model.Where(x => x.Item2).Select(x => x.Item1.Id).ToArray();
+    IEnumerable<Tuple<Course, bool>> allCourses =  Model.OrderBy(c => c.Item1.CourseName).ThenBy(c => c.Item1.StartTime);
 }
 <div class="text-center">
     <h1 class="display-4 mb-5">@ViewData["Title"]</h1>
@@ -14,7 +15,7 @@
 <div class="row mt-5">
     <div class="col-md-9">
         <div class="course-list">
-            @foreach (Tuple<Course, bool> courseTuple in Model)
+            @foreach (Tuple<Course, bool> courseTuple in allCourses)
             {
                 Course course = courseTuple.Item1;
                 bool isRegistered = courseTuple.Item2;
@@ -31,8 +32,12 @@
                                 @course.CourseName
                             </h3>
                         </div>
-                        <div class="col-md text-md-right">
-                            <span class="badge badge-primary">Physical Education</span>
+                        <div class="col-md text-md-right status-badge">
+                            @if (isRegistered)
+                            {
+                                <span class="badge badge-success">Registered</span>
+                            }
+
                         </div>
 
                     </div>
@@ -82,15 +87,19 @@
                         <h5 class="card-title">Registered Courses</h5>
 
                         <ul id="registered-courses-list">
+                            @foreach(Tuple<Course, bool> courseTuple in allCourses)
+                            {
+                                if (courseTuple.Item2)
+                                {
+                                    <li>@courseTuple.Item1.CourseCode</li>
+                                }
+                            }
                         </ul>
                         <p class="card-text">Confirm Course Selection</p>
                         <button id="btn-register" type="submit" class="btn btn-primary">Submit</button>
                         @Html.Hidden("registeredCourseIds", Json.Serialize(registeredCourseIds))
                     </form>
-
                 }
-
-
             </div>
         </div>
     </div>

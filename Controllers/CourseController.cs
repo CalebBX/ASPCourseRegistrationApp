@@ -30,7 +30,6 @@ namespace ASPCourseRegistrationApp.Controllers
             IEnumerable<Course> registeredCourses = student != null ?
                 _context.StudentCourses.Where(sc => sc.StudentId == student.Id).Select(sc => sc.Course) : null;
 
-
             foreach (Course course in allCourses)
             {
                 if (registeredCourses != null)
@@ -44,7 +43,6 @@ namespace ASPCourseRegistrationApp.Controllers
                 }
 
             }
-
             return View(viewModel);
         }
         [HttpPost]

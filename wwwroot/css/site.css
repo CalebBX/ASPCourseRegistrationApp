@@ -92,7 +92,7 @@ body {
     }
 
     .course-card.selected {
-        border-top: 5px solid lime;
+        border-top: 5px solid #28a745;
     }
 
 .course-report-card {

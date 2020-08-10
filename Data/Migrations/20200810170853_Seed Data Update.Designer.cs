@@ -4,14 +4,16 @@ using ASPCourseRegistrationApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASPCourseRegistrationApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200810170853_Seed Data Update")]
+    partial class SeedDataUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,7 +108,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                         {
                             Id = "seeduser1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a10e73f1-f583-48da-a921-9424bbc6b11d",
+                            ConcurrencyStamp = "2ff1398a-b2b5-48ce-bd0b-ac6c17996a97",
                             Email = "user1@test.com",
                             EmailConfirmed = true,
                             FirstName = "John",
@@ -114,7 +116,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER1@TEST.COM",
                             NormalizedUserName = "USER1@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEVpCCzkt+1GZ2ihTEsyHoCLHk3J+nGCNTA2i9YVc9GBDPXJJRNK3pkTf67sQphdPA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELNevMHMgNnQEFU1J3n7fbqW5O1HNWHiAlr8fnnUcr5rgsjt0VeMlYmX1NeBiFkcXA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -124,7 +126,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                         {
                             Id = "seeduser2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ac9ddab5-7f86-49d6-8129-22e87e42a53b",
+                            ConcurrencyStamp = "7cd494a7-1bbb-49a0-9e57-5eccc03934db",
                             Email = "user2@test.com",
                             EmailConfirmed = true,
                             FirstName = "Sara",
@@ -132,7 +134,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER2@TEST.COM",
                             NormalizedUserName = "USER2@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDAhn+JmgAEUdaRdjFRivvRWmPppbMRr/vmWUAas/xDi++wCdI4Z7IJQ5h/UAjzpDA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELU4GY1gtlLlzDaTVr3EsoVDYJ0OKdKATfNRQ2wbUULdwNW4lmpoVc5tiTqBxyno/g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -142,7 +144,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                         {
                             Id = "seeduser3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4802aed5-7eed-4259-aacc-6f47deb6ecb2",
+                            ConcurrencyStamp = "13b03f54-9913-487c-be34-e2613f2b4b1f",
                             Email = "user3@test.com",
                             EmailConfirmed = true,
                             FirstName = "Pete",
@@ -150,7 +152,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER3@TEST.COM",
                             NormalizedUserName = "USER3@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHWVZfuYFT3tjeFXmnMJxVjWvsfJ593w96p+XeoA6WX5hiA+kHyVXHUu7AYM508Acg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOmDujHumf6/HRaI5+RNqaNhR/xeFPwLTw5LjzeH3U+JqwcCgWISY9BAK/A3l/Nk6A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -160,7 +162,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                         {
                             Id = "seeduser4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cff377d7-fa3a-45b3-aea9-a990d35ab8c6",
+                            ConcurrencyStamp = "8e22a985-4f5c-452c-9c2d-5a3ee2c3573b",
                             Email = "user4@test.com",
                             EmailConfirmed = true,
                             FirstName = "Jane",
@@ -168,7 +170,7 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "USER4@TEST.COM",
                             NormalizedUserName = "USER4@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEcPPJHeAIK1FkWAlwJ/GlGiCwxbHuQVrIjiAXtCFNKwmuxztL8/QKM+AGoDzHwPpg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMxVp7BG4kvbiVBD7QXCnZiJ3rZs+8AYL5H5d7fiYD8lXxMohnz2K90P5GlSjY9anQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
