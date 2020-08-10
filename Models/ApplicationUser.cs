@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ASPCourseRegistrationApp.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +15,8 @@ namespace ASPCourseRegistrationApp.Models
         public string StreetAddress { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }
+        public IList<StudentCourse> StudentCourses { get; set; }
+
+
     }
-}
+} 

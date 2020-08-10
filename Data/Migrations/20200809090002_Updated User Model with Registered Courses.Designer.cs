@@ -4,14 +4,16 @@ using ASPCourseRegistrationApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASPCourseRegistrationApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200809090002_Updated User Model with Registered Courses")]
+    partial class UpdatedUserModelwithRegisteredCourses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,6 +108,9 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("CourseCode")
                         .HasColumnType("nvarchar(max)");
 
@@ -126,6 +131,8 @@ namespace ASPCourseRegistrationApp.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("InstructorId");
 
                     b.ToTable("Courses");
@@ -136,20 +143,20 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             Id = 100,
                             CourseCode = "DD101",
                             CourseName = "Intro To Dare-Deviling",
-                            EndTime = new DateTime(2020, 8, 10, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(2020, 8, 9, 11, 0, 0, 0, DateTimeKind.Unspecified),
                             InstructorId = 100,
                             Location = "Granger Building RM340",
-                            StartTime = new DateTime(2020, 8, 10, 10, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartTime = new DateTime(2020, 8, 9, 10, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 101,
                             CourseCode = "CM230",
                             CourseName = "Advanced Criminology",
-                            EndTime = new DateTime(2020, 8, 10, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new DateTime(2020, 8, 9, 9, 0, 0, 0, DateTimeKind.Unspecified),
                             InstructorId = 101,
                             Location = "Apex Building RM110",
-                            StartTime = new DateTime(2020, 8, 10, 8, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartTime = new DateTime(2020, 8, 9, 8, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -183,21 +190,6 @@ namespace ASPCourseRegistrationApp.Data.Migrations
                             FirstName = "Ace",
                             LastName = "Ventura"
                         });
-                });
-
-            modelBuilder.Entity("ASPCourseRegistrationApp.Models.StudentCourse", b =>
-                {
-                    b.Property<string>("StudentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentId", "CourseId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("StudentCourses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -337,24 +329,13 @@ namespace ASPCourseRegistrationApp.Data.Migrations
 
             modelBuilder.Entity("ASPCourseRegistrationApp.Models.Course", b =>
                 {
+                    b.HasOne("ASPCourseRegistrationApp.Models.ApplicationUser", null)
+                        .WithMany("RegisteredCourses")
+                        .HasForeignKey("ApplicationUserId");
+
                     b.HasOne("ASPCourseRegistrationApp.Models.Faculty", "Instructor")
                         .WithMany()
                         .HasForeignKey("InstructorId");
-                });
-
-            modelBuilder.Entity("ASPCourseRegistrationApp.Models.StudentCourse", b =>
-                {
-                    b.HasOne("ASPCourseRegistrationApp.Models.Course", "Course")
-                        .WithMany("StudentCourses")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ASPCourseRegistrationApp.Models.ApplicationUser", "Student")
-                        .WithMany("StudentCourses")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -15,10 +15,25 @@ namespace ASPCourseRegistrationApp.Data
         }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Faculty> FacultyMembers { get; set; }
+        public DbSet<StudentCourse> StudentCourses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<StudentCourse>()
+                .HasKey(sc => new { sc.StudentId, sc.CourseId });
+            builder.Entity<StudentCourse>()
+               .HasOne(sc => sc.Student)
+               .WithMany(s => s.StudentCourses)
+               .HasForeignKey(sc => sc.StudentId);
+            builder.Entity<StudentCourse>()
+                .HasOne(sc => sc.Course)
+                .WithMany(c => c.StudentCourses)
+                .HasForeignKey(sc => sc.CourseId);
+           
+
+
             builder.Entity<Faculty>().HasData(
                 new Faculty[]
                 {

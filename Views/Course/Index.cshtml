@@ -1,83 +1,96 @@
 ﻿@using ASPCourseRegistrationApp.Models
+@using ASPCourseRegistrationApp.Models.ViewModels
 
-@model IEnumerable<Course> 
+@model IEnumerable<Tuple<Course, bool>>
 
 @{
+    int[] registeredCourseIds = Model.Where(x => x.Item2).Select(x => x.Item1.Id).ToArray();
 }
-
 <div class="text-center">
     <h1 class="display-4 mb-5">Register For Courses</h1>
 </div>
+<div class="row mt-5">
+    <div class="col-md-9">
+        <div class="course-list">
+            @foreach (Tuple<Course, bool> courseTuple in Model)
+            {
+                Course course = courseTuple.Item1;
+                bool isRegistered = courseTuple.Item2;
 
-<div class="course-list mt-5">
-    @foreach (Course course in Model)
-    {
-        string formattedStartTime = course.StartTime.HasValue ? course.StartTime.Value.ToString("h:mmtt").ToLower() : null;
-        string formattedEndTime = course.EndTime.HasValue ? course.EndTime.Value.ToString("h:mmtt").ToLower() : null;
+                string formattedStartTime = course.StartTime.HasValue ? course.StartTime.Value.ToString("h:mmtt").ToLower() : null;
+                string formattedEndTime = course.EndTime.HasValue ? course.EndTime.Value.ToString("h:mmtt").ToLower() : null;
 
-        <div class="course-card">
-            <div class="row">
-                <div class="col-md-9">
-                    <h3 class="course-card__title">
-                        @course.CourseName
-                    </h3>
+                string selectedClass = isRegistered ? "selected" : string.Empty;
+
+                <div class="course-card @selectedClass" data-id="@course.Id" data-code="@course.CourseCode">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <h3 class="course-card__title">
+                                @course.CourseName
+                            </h3>
+                        </div>
+                        <div class="col-md text-md-right">
+                            <span class="badge badge-primary">Physical Education</span>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 font-weight-bold">
+                            @if (course.Instructor != null)
+                            {
+                                @(course.Instructor.FirstName + " " + course.Instructor.LastName)
+                            }
+
+                        </div>
+                        <div class="col-md-6 font-weight-bold">
+                            @course.CourseCode
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @if (course.StartTime.HasValue && course.EndTime.HasValue)
+                            {
+                                @(formattedStartTime + " - " + formattedEndTime)
+                            }
+
+                        </div>
+                        <div class="col-md-6">
+                            @course.Location
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md text-md-right">
-                    <span class="badge badge-primary">Physical Education</span>
-                </div>
+            }
 
-            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card sticky-top register-form">
+            <div class="card-body">
 
-            <div class="row">
-                <div class="col-md-6 font-weight-bold">
-                    @if (course.Instructor != null)
+                @*@if (!User.Identity.IsAuthenticated)
                     {
-                        @(course.Instructor.FirstName + " " + course.Instructor.LastName)
+                        <h5 class="card-title">Log In</h5>
+                        <p class="card-text">Log in to register for courses.</p>
+                        <a href="/Identity/Account/Login" class="btn btn-primary">Log In</a>
                     }
+                    else
+                    {*@
+                <form id="form-register-courses">
+                    <h5 class="card-title">Registered Courses</h5>
 
-                </div>
-                <div class="col-md-6 font-weight-bold">
-                    @course.CourseCode
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    @if(course.StartTime.HasValue && course.EndTime.HasValue)
-                    {
-                        @(formattedStartTime + " - " + formattedEndTime)
-                    }
-                    
-                </div>
-                <div class="col-md-6">
-                    @course.Location
-                </div>
+                    <ul id="registered-courses-list">
+                    </ul>
+                    <p class="card-text">Confirm Course Selection</p>
+                    <button id="btn-register" type="submit" class="btn btn-primary">Submit</button>
+                    @Html.Hidden("registeredCourseIds", Json.Serialize(registeredCourseIds))
+                </form>
+
+                @* } *@
+
+
             </div>
         </div>
-    }
+    </div>
 </div>
 
-<style>
-    .course-card {
-        position: relative;
-        cursor: pointer;
-        padding: 20px;
-        border: 1px solid #dee2e6;
-        margin-bottom: 20px;
-        -webkit-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.1);
-        -moz-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.1);
-        box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.1);
-
-        -webkit-transition: background 0.2s ease;
-        -moz-transition: background 0.2s ease;
-        -ms-transition: background 0.2s ease;
-        -o-transition: background 0.2s ease;
-        transition: background 0.2s ease;
-    }
-        .course-card:hover {
-            background-color: #e6ecf2;
-        }
-        .course-card.selected {
-           border-top: 5px solid lime;
-            
-        }
-</style>

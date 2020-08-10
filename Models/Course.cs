@@ -17,6 +17,7 @@ namespace ASPCourseRegistrationApp.Models
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public string Location { get; set; }
+        public IList<StudentCourse> StudentCourses { get; set; }
 
     }
 }
